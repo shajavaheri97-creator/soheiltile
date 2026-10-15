@@ -1,0 +1,20 @@
+# Builds the production bundle for a Linux x64 server with Node 22.
+# Native modules (better-sqlite3, sharp) are compiled/downloaded for the target here,
+# so nothing has to be installed on the VPS.
+#
+#   docker build --platform linux/amd64 --target export \
+#     --output type=local,dest=./deploy -f Dockerfile.build .
+FROM node:22-bookworm AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+RUN mkdir -p /out/.next \
+ && cp -r .next/standalone/. /out/ \
+ && cp -r .next/static /out/.next/static \
+ && cp -r public /out/public \
+ && cp -r drizzle /out/drizzle
+
+FROM scratch AS export
+COPY --from=build /out /

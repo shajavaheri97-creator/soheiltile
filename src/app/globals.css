@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "@fontsource-variable/vazirmatn";
+
+@theme inline {
+  --font-sans: "Vazirmatn Variable", system-ui, Tahoma, sans-serif;
+  --color-brand-50: #e6fafa;
+  --color-brand-100: #c9f4f4;
+  --color-brand-400: #4fd8da;
+  --color-brand-500: #18c3c6;
+  --color-brand-600: #11a5a9;
+  --color-brand-700: #0b7f86;
+  --color-brand-900: #0c3b40;
+}
+
+:root { --background: #f6fbfb; --foreground: #12303a; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* ---------- public site theme (scoped to <html class="site">, admin stays light) ---------- */
+.site {
+  --bg: #ffffff; --bg2: #f1fafa; --card: #ffffff; --line: #d3eaec;
+  --ink: #12303a; --muted: #4f6a74; --shadow: 0 10px 30px rgba(11, 127, 134, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  .site {
+    --bg: #081a1e; --bg2: #0c2428; --card: #0e2a2f; --line: #17393e;
+    --ink: #e4f5f6; --muted: #9bbcc1; --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+}
+@theme inline {
+  --color-bg: var(--bg); --color-bg2: var(--bg2); --color-card: var(--card);
+  --color-line: var(--line); --color-ink: var(--ink); --color-muted: var(--muted);
+  --shadow-soft: var(--shadow);
+}
+.site body { background: var(--bg); color: var(--ink); }
+.site { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+/* Content is visible by default (no-JS, crawlers, failed hydration). JS adds .pending only to
+   elements that are below the fold, then .in when they scroll into view. */
+.reveal { transition: opacity .7s ease, transform .7s ease; }
+.reveal.pending { opacity: 0; transform: translateY(24px); }
+.reveal.pending.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal.pending { opacity: 1; transform: none; transition: none; }
+  .site { scroll-behavior: auto; }
+}
+.tile-ph { background: linear-gradient(135deg, var(--color-brand-100), var(--color-brand-400)); }

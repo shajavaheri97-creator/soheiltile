@@ -1,0 +1,41 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# next.js / build output
+/.next/
+/out/
+/build
+/deploy
+*.tsbuildinfo
+next-env.d.ts
+
+# secrets: NEVER commit (use .env.example as the template)
+.env
+.env.*
+!.env.example
+*.pem
+
+# app data: SQLite database + uploaded photos (back these up separately, not in git)
+/data
+*.db
+*.db-wal
+*.db-shm
+
+# logs / OS / editor / archives
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.zip
+/coverage
+.vercel
